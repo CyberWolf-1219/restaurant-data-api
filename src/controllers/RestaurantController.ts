@@ -89,10 +89,16 @@ export const updateRestaurant: Handler = async (req, res, next) => {
       { _id: updateData._id },
       updateData
     );
-    console.log(updateResult);
-    res.status(200).json({ message: updateResult });
+    const payload = {
+      ...updateResult,
+      links: {
+        index: `/restaurants/`,
+      },
+    };
+    res.status(200).json({ message: payload });
   } catch (error) {
-    res.status(500).json({ message: error });
+    console.log(error);
+    res.status(500).json({ message: (error as Error).message });
   }
 
   console.log(''.padEnd(80, '='));
