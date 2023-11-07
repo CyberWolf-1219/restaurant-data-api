@@ -89,6 +89,8 @@ export const updateRestaurant: Handler = async (req, res, next) => {
       { _id: updateData._id },
       updateData
     );
+    console.log(updateResult);
+
     const payload = {
       ...updateResult,
       links: {
@@ -115,6 +117,7 @@ export const removeRestaurant: Handler = async (req, res, next) => {
 
     const removeResult = await Restaurant.deleteOne({ _id: id });
     console.log(removeResult);
+
     res.status(200).json({ message: 'OK' });
   } catch (error) {
     console.log(error);
