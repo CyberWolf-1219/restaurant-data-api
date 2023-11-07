@@ -118,10 +118,17 @@ export const removeRestaurant: Handler = async (req, res, next) => {
     const removeResult = await Restaurant.deleteOne({ _id: id });
     console.log(removeResult);
 
-    res.status(200).json({ message: 'OK' });
+    const payload = {
+      ...removeResult,
+      links: {
+        index: `/restaurants/`,
+      },
+    };
+
+    res.status(200).json({ message: payload });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: (error as Error).message });
   }
   console.log(''.padEnd(80, '='));
 };
