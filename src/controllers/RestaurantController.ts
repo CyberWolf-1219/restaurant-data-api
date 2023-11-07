@@ -30,9 +30,21 @@ export const getAllRestaurants: Handler = async (req, res, next) => {
   console.log("".padEnd(80, "="))
 };
 
-export const viewRestaurant: Handler = (req, res, next) => {
-  console.log(req.params);
-  res.status(200).json({ message: 'ONE ENTRY' });
+export const viewRestaurant: Handler = async (req, res, next) => {
+  console.log("RESTAURANT VIEW ".padEnd(80, "="))
+  try {
+    const params = req.params;
+    if (!params.restaurant_id) {
+      throw new Error('[-] NO RESTAURANT ID WAS SENT')
+    }
+
+    const queryResult = await Restaurant.findById(params.restaurant_id);
+    console.log(queryResult)
+    res.status(200).json({ message: queryResult });
+  } catch (error) {
+    res.status(500).json({ messag: error })
+  }
+  console.log("".padEnd(80, "="))
 };
 
 export const updateRestaurant: Handler = (req, res, next) => {
