@@ -47,9 +47,19 @@ export const viewRestaurant: Handler = async (req, res, next) => {
   console.log("".padEnd(80, "="))
 };
 
-export const updateRestaurant: Handler = (req, res, next) => {
-  console.log(req.url);
-  res.status(200).json({ message: 'UPDATED' });
+export const updateRestaurant: Handler = async (req, res, next) => {
+  console.log("RESTAURANT VIEW ".padEnd(80, "="))
+  try {
+    const updateData = req.body;
+    console.log(updateData);
+    const updateResult = await Restaurant.updateOne({ _id: updateData._id }, updateData);
+    console.log(updateResult)
+    res.status(200).json({ message: updateResult });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+
+  console.log("".padEnd(80, "="))
 };
 
 export const removeRestaurant: Handler = (req, res, next) => {
