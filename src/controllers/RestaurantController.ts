@@ -70,7 +70,7 @@ export const viewRestaurant: Handler = async (req, res, next) => {
       links: {
         index: `/restaurants`,
         update: `/restaurants/update`,
-        remove: `/restaurants/remove`,
+        remove: `/restaurants/remove/${queryResult?.id}`,
       },
     };
     res.status(200).json({ message: payload });
