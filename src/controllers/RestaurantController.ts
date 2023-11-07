@@ -65,7 +65,15 @@ export const viewRestaurant: Handler = async (req, res, next) => {
 
     const queryResult = await Restaurant.findById(params.restaurant_id);
     console.log(queryResult);
-    res.status(200).json({ message: queryResult });
+    const payload = {
+      ...queryResult?.toObject(),
+      links: {
+        index: `/restaurants`,
+        update: `/restaurants/update`,
+        remove: `/restaurants/remove`,
+      },
+    };
+    res.status(200).json({ message: payload });
   } catch (error) {
     res.status(500).json({ messag: error });
   }
