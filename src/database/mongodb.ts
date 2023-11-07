@@ -15,10 +15,3 @@ export function connectToMongodb(callback: Function) {
         })
 }
 
-export function getDatabase() {
-    if (DB) {
-        return DB;
-    } else {
-        throw new Error('[-] NO DATABASE FOUND')
-    }
-}
