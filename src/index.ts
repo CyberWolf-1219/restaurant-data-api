@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import { connectToMongodb } from './database/mongodb';
 
 const app = express();
-app.use(bodyParser);
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     console.log(req.url);
