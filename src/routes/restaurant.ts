@@ -1,16 +1,22 @@
 import express from 'express';
-import { createRestaurant, getAllRestaurants, removeRestaurant, updateRestaurant, viewRestaurant } from '../controllers/RestaurantController';
+import {
+  createRestaurant,
+  getAllRestaurants,
+  removeRestaurant,
+  updateRestaurant,
+  viewRestaurant,
+} from '../controllers/RestaurantController';
 
 const RestaurantRoute = express.Router();
 
-RestaurantRoute.get('/', getAllRestaurants)
+RestaurantRoute.get('/', getAllRestaurants);
 
-RestaurantRoute.get('/:restaurant_id', viewRestaurant)
+RestaurantRoute.get('/:restaurant_id', viewRestaurant);
 
-RestaurantRoute.post('/create', createRestaurant)
+RestaurantRoute.post('/create', createRestaurant);
 
-RestaurantRoute.put('/update', updateRestaurant)
+RestaurantRoute.put('/update', updateRestaurant);
 
-RestaurantRoute.delete('/remove', removeRestaurant)
+RestaurantRoute.delete('/remove/:restaurant_id', removeRestaurant);
 
 export default RestaurantRoute;
