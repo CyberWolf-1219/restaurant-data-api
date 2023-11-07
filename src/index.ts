@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-import RestaurantRoute from './routes/restaurant'
+import RestaurantRoute from './routes/restaurant';
 
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -10,19 +10,19 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    console.log(req.url);
-    res.send("API CONNECTED");
-})
+  console.log(req.hostname);
+  res.send('API CONNECTED');
+});
 
 app.use('/restaurants', RestaurantRoute);
 
 app.use((req, res) => {
-    res.status(404).send('NOT FOUND')
-})
+  res.status(404).send('NOT FOUND');
+});
 
 connectToMongodb(() => {
-    const PORT = process.env.PORT || 7777;
-    app.listen(PORT, () => {
-        console.log(`[+] SERVER STARTED ON PORT:${PORT}`);
-    })
-})
+  const PORT = process.env.PORT || 7777;
+  app.listen(PORT, () => {
+    console.log(`[+] SERVER STARTED ON PORT:${PORT}`);
+  });
+});
