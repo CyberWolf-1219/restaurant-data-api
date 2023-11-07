@@ -5,14 +5,28 @@ export const createRestaurant: Handler = async (req, res, next) => {
   console.log('RESTAURANT CREATE '.padEnd(80, '='));
   try {
     const newRestaurantData = req.body;
+    const isInDB = await Restaurant.findOne({ name: newRestaurantData.name });
+    if (isInDB) {
+      throw new Error(
+        `[-] AN ENTRY WITH NAME:${newRestaurantData.name} IS ALREADY EXISTS IN THE DB`
+      );
+    }
+
     const newRestaurant = new Restaurant(newRestaurantData);
-    const validationResult = await newRestaurant.validate();
-    console.log(validationResult);
+    await newRestaurant.validate();
     const saveResult = await newRestaurant.save();
     console.log(saveResult);
-    res.status(200).json({ message: 'OK' });
+    res.status(200).json({
+      message: {
+        links: {
+          index: '/restaurants/',
+          view: `restaurants/${saveResult.id}`,
+        },
+      },
+    });
   } catch (error) {
-    res.status(500).json({ message: error });
+    console.log(error);
+    res.status(500).json({ message: (error as Error).message });
   }
   console.log(''.padEnd(80, '='));
 };
