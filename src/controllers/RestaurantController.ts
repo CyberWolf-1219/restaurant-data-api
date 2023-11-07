@@ -34,12 +34,23 @@ export const createRestaurant: Handler = async (req, res, next) => {
 export const getAllRestaurants: Handler = async (req, res, next) => {
   console.log('RESTAURANT INDEX '.padEnd(80, '='));
   try {
-    const result = await Restaurant.find();
-    console.log(result);
-    res.status(200).json({ message: result });
+    const results = await Restaurant.find();
+    console.log(results);
+    const links = results.map((result, i) => {
+      return {
+        name: result.name,
+        rating: result.rating,
+        address: result.address,
+        contacts: result.contacts,
+        links: {
+          view: `/restaurants/${result.id}`,
+        },
+      };
+    });
+    res.status(200).json({ message: { links } });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: (error as Error).message });
   }
   console.log(''.padEnd(80, '='));
 };
