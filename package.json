@@ -1,0 +1,25 @@
+{
+  "name": "restraunt-management-system",
+  "version": "1.0.0",
+  "description": "simple restraunt management system.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "prod": "node dist/index.js",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "BlackMonkey-1219",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.8.10",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
+  }
+}
