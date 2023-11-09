@@ -27,7 +27,7 @@ app.use((req, res) => {
 // =============================================================================
 
 connectToMongodb(() => {
-  const PORT = process.env.PORT || 7777;
+  const PORT = process.env.PORT;
   app.listen(PORT, () => {
     console.log(`[+] SERVER STARTED ON PORT:${PORT}`);
   });
