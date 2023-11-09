@@ -20,7 +20,7 @@ interface IRestaurant extends Document {
     name: string;
     price: number;
   }[];
-  schedule: {
+  schedules: {
     monday: {
       opensAt: string;
       closesAt: string;
@@ -94,7 +94,7 @@ const RestaurantSchema: Schema<IRestaurant> = new Schema({
       price: { type: Number, required: true },
     },
   ],
-  schedule: {
+  schedules: {
     monday: {
       opensAt: { type: String, required: true },
       closesAt: { type: String, required: true },
