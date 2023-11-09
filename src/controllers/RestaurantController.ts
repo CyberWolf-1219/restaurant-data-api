@@ -36,7 +36,7 @@ export const getAllRestaurants: Handler = async (req, res, next) => {
   try {
     const results = await Restaurant.find();
     console.log(results);
-    const links = results.map((result, i) => {
+    const payload = results.map((result, i) => {
       return {
         name: result.name,
         rating: result.rating,
@@ -47,7 +47,7 @@ export const getAllRestaurants: Handler = async (req, res, next) => {
         },
       };
     });
-    res.status(200).json({ message: { links } });
+    res.status(200).json({ message: payload });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: (error as Error).message });
