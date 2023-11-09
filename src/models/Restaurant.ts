@@ -20,25 +20,62 @@ interface IRestaurant extends Document {
     name: string;
     price: number;
   }[];
-  openHours: {
-    day: 'MON' | 'TUE' | 'WED' | 'THIR' | 'FIR' | 'SAT' | 'SUN';
-    opensAt: string;
-    closesAt: string;
-  }[];
+  schedule: {
+    monday: {
+      opensAt: string;
+      closesAt: string;
+    };
+    tuesday: {
+      opensAt: string;
+      closesAt: string;
+    };
+    wednesday: {
+      opensAt: string;
+      closesAt: string;
+    };
+    thirsday: {
+      opensAt: string;
+      closesAt: string;
+    };
+    friday: {
+      opensAt: string;
+      closesAt: string;
+    };
+    saturday: {
+      opensAt: string;
+      closesAt: string;
+    };
+    sunday: {
+      opensAt: string;
+      closesAt: string;
+    };
+  };
 }
 
 const RestaurantSchema: Schema<IRestaurant> = new Schema({
-  name: { type: String, required: true },
+  name: {
+    type: String,
+    required: true,
+  },
   address: {
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    country: { type: String, required: true },
+    street: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
   },
   contacts: {
     phone: {
       type: String,
       validate: (value: string) => {
-        return /\+?\d{1,4} \d{3} \d{4}/.test(value);
+        return /\+?\d{10,11}/.test(value);
       },
       required: true,
     },
@@ -50,17 +87,6 @@ const RestaurantSchema: Schema<IRestaurant> = new Schema({
       required: true,
     },
   },
-  ratings: [
-    {
-      userID: { type: String, required: true },
-      rating: {
-        type: Number,
-        min: [0, 'Invalid Rating'],
-        max: [5, 'Invalid Rating'],
-        required: true,
-      },
-    },
-  ],
   rating: { type: Number, required: true },
   menu: [
     {
@@ -68,29 +94,36 @@ const RestaurantSchema: Schema<IRestaurant> = new Schema({
       price: { type: Number, required: true },
     },
   ],
-  openHours: [
-    {
-      day: {
-        type: String,
-        enum: ['MON', 'TUE', 'WED', 'THI', 'FRI', 'SAT', 'SUN'],
-        required: true,
-      },
-      opensAt: {
-        type: String,
-        validate: (value: string) => {
-          return /\d\d:\d\d\s['AM'|'PM']/.test(value);
-        },
-        required: true,
-      },
-      closesAt: {
-        type: String,
-        validate: (value: string) => {
-          return /\d\d:\d\d\s['AM'|'PM']/.test(value);
-        },
-        required: true,
-      },
+  schedule: {
+    monday: {
+      opensAt: { type: String, required: true },
+      closesAt: { type: String, required: true },
     },
-  ],
+    tuesday: {
+      opensAt: { type: String, required: true },
+      closesAt: { type: String, required: true },
+    },
+    wednesday: {
+      opensAt: { type: String, required: true },
+      closesAt: { type: String, required: true },
+    },
+    thirsday: {
+      opensAt: { type: String, required: true },
+      closesAt: { type: String, required: true },
+    },
+    friday: {
+      opensAt: { type: String, required: true },
+      closesAt: { type: String, required: true },
+    },
+    saturday: {
+      opensAt: { type: String, required: true },
+      closesAt: { type: String, required: true },
+    },
+    sunday: {
+      opensAt: { type: String, required: true },
+      closesAt: { type: String, required: true },
+    },
+  },
 });
 
 export default mongoose.model<IRestaurant>('Restaurant', RestaurantSchema);
