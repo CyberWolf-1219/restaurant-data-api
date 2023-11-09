@@ -5,6 +5,12 @@ export const createRestaurant: Handler = async (req, res, next) => {
   console.log('RESTAURANT CREATE '.padEnd(80, '='));
   try {
     const newRestaurantData = req.body;
+    console.log(newRestaurantData);
+
+    if (!newRestaurantData) {
+      throw new Error('INVALID REQUEST DATA');
+    }
+
     const isInDB = await Restaurant.findOne({ name: newRestaurantData.name });
     if (isInDB) {
       throw new Error(
