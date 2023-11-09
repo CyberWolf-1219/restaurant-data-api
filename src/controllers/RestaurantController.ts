@@ -91,6 +91,11 @@ export const updateRestaurant: Handler = async (req, res, next) => {
   try {
     const updateData = req.body;
     console.log(updateData);
+
+    if (!updateData._id) {
+      throw new Error('[-] INVALID PAYLOAD: NO ID WAS PROVIDED');
+    }
+
     const updateResult = await Restaurant.updateOne(
       { _id: updateData._id },
       updateData
@@ -117,8 +122,9 @@ export const removeRestaurant: Handler = async (req, res, next) => {
   try {
     const id = req.params.restaurant_id;
     console.log(id);
+
     if (!id) {
-      throw new Error('[-] NO RESTAURANT ID WAS PROVIDED');
+      throw new Error('[-] INVALID REQUEST: NO ID WAS PROVIDED');
     }
 
     const removeResult = await Restaurant.deleteOne({ _id: id });
